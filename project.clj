@@ -1,4 +1,4 @@
-(defproject cc.artifice/pegasus "0.6.2"
+(defproject cc.artifice/pegasus "0.6.3"
   :description "A scaleable production-ready crawler in clojure"
   :url "http://github.com/shriphani/pegasus"
   :license {:name "Eclipse Public License"
@@ -18,5 +18,4 @@
                  [org.clojure/core.async "0.2.374"]
                  [org.clojure/tools.namespace "0.2.11"]
                  [prismatic/schema "1.1.0"]
-                 [slingshot "0.12.2"]]
-  :plugins [[lein-ancient "0.6.8"]])
+                 [slingshot "0.12.2"]])

@@ -66,6 +66,7 @@
                                 component)})
                        (catch Exception e
                          (do (info component)
+                             (.printStackTrace e)
                              (error e)
                              (merge % {:input nil})))))
                    (filter :input))
