@@ -383,22 +383,22 @@
    :stop-sequence [close-wrtr mark-stop]
    :pipeline [[:frontier s/Str 5]
               [:extractor {:url s/Str,
-                           :body s/Str,
+                           :body s/Any,
                            :time s/Int} 5]
               [:update-state {:url s/Str,
-                              :body s/Str,
+                              :body s/Any,
                               :time s/Int
                               :extracted [s/Str]} 5]
               [:filter {:url s/Str
-                        :body s/Str
+                        :body s/Any
                         :time s/Int
                         :extracted [s/Str]} 5]
               [:writer {:url s/Str
-                        :body s/Str
+                        :body s/Any
                         :time s/Int
                         :extracted [s/Str]} 5]
               [:enqueue {:url s/Str
-                         :body s/Str
+                         :body s/Any
                          :time s/Int
                          :extracted [s/Str]} 5]
               [:test-and-halt s/Any 5]]})
