@@ -8,6 +8,7 @@
             [clojure.java.io :as io]
             [clojure.pprint :refer [pprint]]
             [clojure.core.cache :as cache]
+            [durable-queue]
             [me.raynes.fs :as fs]
             [net.cgrand.enlive-html :as html]
             [org.bovinegenius.exploding-fish :as uri]
@@ -233,7 +234,7 @@
 
 (defn zero-enqueued?
   [q]
-  (info :number-enqueued (queue/global-to-visit q))
+  (info (durable-queue/stats q))
   (zero?
    (queue/global-to-visit q)))
 
