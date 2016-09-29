@@ -123,6 +123,7 @@
   (let [global-stats (stats q)]
     (reduce
      (fn [n [name named-q-stats]]
-       (+ n (:enqueued named-q-stats)))
+       (+ n (- (:enqueued named-q-stats)
+               (:completed named-q-stats))))
      0
      global-stats)))
