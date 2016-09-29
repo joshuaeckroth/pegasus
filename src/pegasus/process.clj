@@ -120,8 +120,6 @@
 
         initialized-config (initialize-component-configs config)
         
-        _ (println initialized-config)
-
         final-out-chan (reduce
                         (fn [last-out-channel [component component-schema parallelism]]
                           (info :current-component component)

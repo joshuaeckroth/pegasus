@@ -91,11 +91,8 @@
     (info :enqueue url)
     (when-not (cache/lookup visited-hosts
                             (uri/host url))
-      (do (debug :here? url)
-          (enqueue-robots url q visited-hosts))
-      
-      (do (debug :here-2? url)
-          (setup-queue-worker q q-name config)))
+      (enqueue-robots url q visited-hosts)
+      (setup-queue-worker q q-name config))
     
     ;; insert this URL.
     (put! q q-name url)
