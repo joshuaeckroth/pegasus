@@ -55,6 +55,7 @@
                             (:socket-timeout config)
                             (:conn-timeout config))
                :body)
+     :extracted []
      :time (-> (t/now)
                c/to-long)})
 
@@ -385,7 +386,8 @@
    :pipeline [[:frontier s/Str 5]
               [:extractor {:url s/Str,
                            :body s/Any,
-                           :time s/Int} 5]
+                           :time s/Int,
+                           :extracted [s/Any]} 5]
               [:update-state {:url s/Str,
                               :body s/Any,
                               :time s/Int
