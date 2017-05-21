@@ -53,16 +53,25 @@
       ;; draw a url and pass
       ;; it through the pipeline
       (info q-name)
-      (let [task (take! q q-name 10 nil)]
-        (when-not (nil? task)
-          (let [url (deref task)]
-            (info :obtained url)
-            (if (= (uri/path url) "/robots.txt")
-              (handle-robots-url url config)
-              (async/>! init-chan {:input url
-                                   :config config}))
-            (complete! task))))
-      
+      (try
+        (let [task (take! q q-name 10 nil)]
+          (when-not (nil? task)
+            (let [url (deref task)]
+              (info :obtained url)
+              (if (= (uri/path url) "/robots.txt")
+                (handle-robots-url url config)
+                (async/>! init-chan {:input url
+                                     :config config}))
+              (complete! task))))
+        (catch java.io.IOException ex
+          ;; Uh-oh.  Is the durable queue messed up?
+          ;; Durable queue throws an IOException if its internal
+          ;; checksums don't match.
+          ;; Best idea here: Communicate an error to the
+          ;; crawler thread, stop, and report an error.
+          ;; Reset the crawl so that the next attempt starts
+          ;; over with fresh durable queue files.
+          (swap! (:state config) assoc :queue-error true)))
       (when-not (:stop?
                  @(:state config))
        (recur)))))
